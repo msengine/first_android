@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
  * Created by byhisson on 2017. 11. 30..
  */
 
+// add comit
+
 
 public class ListViewItem {
 
