@@ -43,7 +43,7 @@ public class MyFragment3 extends Fragment {
 
     public static MyFragment3 newInstance(String param1) {
         MyFragment3 fragment = new MyFragment3();
-        Bundle args = new Bundle();                 // 파라미터는 전달할 데이터 개
+        Bundle args = new Bundle();                 // 파라미터는 전달할 데이터
         args.putString(ARG_PARAM1, param1);
         //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
