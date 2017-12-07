@@ -73,4 +73,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        getFragmentManager().beginTransaction().replace(R.id.frame_main, new MyFragment2()).commit();
+
+    }
 }
