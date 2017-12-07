@@ -84,21 +84,21 @@ public class MyFragment2 extends Fragment {
         moveAddPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveAddPeronView();
+                moveAddPersonView();
             }
         });
     }
 
     public void openDetailPersonInfo(int i){
         String selectedName = personArrayList.get(i).getName();
-        MyFragment3 detailPeron = new MyFragment3();
+        MyFragment3 detailPerson = new MyFragment3();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, detailPeron.newInstance(selectedName));
+        fragmentTransaction.replace(R.id.frame_main, detailPerson.newInstance(selectedName));
         fragmentTransaction.commit();
     }
 
-    public void moveAddPeronView(){
+    public void moveAddPersonView(){
         MyFragment1 moveAddPerson = new MyFragment1();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
