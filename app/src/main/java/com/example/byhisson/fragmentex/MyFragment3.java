@@ -30,6 +30,11 @@ public class MyFragment3 extends Fragment {
 
     private String mParam1;
 
+    private TextView textDetail1;
+    private TextView textDetail2;
+    private TextView textDetail3;
+    private TextView textDetail4;
+
     private OnFragmentInteractionListener mListener;
 
     public MyFragment3() {
@@ -57,8 +62,6 @@ public class MyFragment3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-
-
         GitHubService gitHubService = retrofit.create(GitHubService.class);
         final Call<Person> call = gitHubService.detailPerson("persons", mParam1);
 
@@ -66,10 +69,10 @@ public class MyFragment3 extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<Person> call, Response<Person> response) {
 
-                TextView textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
-                TextView textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
-                TextView textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
-                TextView textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
+                textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
+                textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
+                textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
+                textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
 
                 Person selectedPerson = response.body();
 
@@ -99,13 +102,13 @@ public class MyFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                TextView textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
-                TextView textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
-                TextView textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
-                TextView textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
+                textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
+                textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
+                textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
+                textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
 
                 GitHubService gitHubService = retrofit.create(GitHubService.class);
-                final  Call<Void> call = gitHubService.delPerson(textDetail1.getText().toString());
+                final Call<Void> call = gitHubService.delPerson(textDetail1.getText().toString());
 
                 call.enqueue(new Callback<Void>() {
                     @Override

@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Person> personList = new ArrayList<Person>();
 
-        /*
-         add person object
-         */
+        /* add person object */
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,15 +52,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openUserListView();
-
             }
         });
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.frame_main, new MyFragment3()).commit();
-
+                openDelPersonView();
+                ;
             }
         });
 
@@ -85,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
         MyFragment2 openUserList = new MyFragment2();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, openUserList).commit();
+        fragmentTransaction.replace(R.id.frame_main, openUserList);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     private void openAddUser() {
@@ -93,6 +92,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, addPerson);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    private void openDelPersonView() {
+        MyFragment3 delPerson = new MyFragment3();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, delPerson);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
