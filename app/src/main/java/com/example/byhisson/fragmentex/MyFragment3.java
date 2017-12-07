@@ -26,14 +26,9 @@ import static com.example.byhisson.fragmentex.GitHubService.retrofit;
 
 public class MyFragment3 extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
+    private static final String PERSON_NAME = "param1";
 
     private String mParam1;
-    //private String mParam2;
-
-    Person personDetail;
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,10 +38,9 @@ public class MyFragment3 extends Fragment {
 
     public static MyFragment3 newInstance(String param1) {
         MyFragment3 fragment = new MyFragment3();
-        Bundle args = new Bundle();                 // 파라미터는 전달할 데이터
-        args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle personDetail = new Bundle();                 // 파라미터는 전달할 데이터
+        personDetail.putString(PERSON_NAME, param1);
+        fragment.setArguments(personDetail);
         return fragment;
     }
 
@@ -55,8 +49,7 @@ public class MyFragment3 extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(PERSON_NAME);
         }
     }
 
