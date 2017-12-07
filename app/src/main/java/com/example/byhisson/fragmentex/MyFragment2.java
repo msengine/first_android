@@ -49,14 +49,6 @@ public class MyFragment2 extends Fragment {
             public void onResponse(Call<ArrayList<Person>> call, Response<ArrayList<Person>> response) {
                 final ArrayList<Person> personArrayList = response.body();
 
-                /*
-                for (int i = 0; i < personArrayList.size(); i++) {
-                    personNames.set(i, personArrayList.get(i).getName());
-                }
-                ArrayAdapter<String> personNamesAdapter = new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_list_item_1, personNames);
-                */
-
                 ListView listview = (ListView) getView().findViewById(R.id.listview1);
                 ListViewAdapter adapter = new ListViewAdapter();
 

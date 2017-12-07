@@ -1,6 +1,8 @@
 package com.example.byhisson.fragmentex;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.frame_main, new MyFragment2()).commit();
+                //getFragmentManager().beginTransaction().replace(R.id.frame_main, new MyFragment2()).commit();
+                openUserListView();
 
             }
         });
@@ -72,5 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        openUserListView();
+    }
+
+    private void openUserListView(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, new MyFragment2()).commit();
     }
 }
