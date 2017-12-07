@@ -41,6 +41,10 @@ public class MyFragment2 extends Fragment {
     public void onResume() {
         super.onResume();
 
+        /*
+        리스트 불러오기
+         */
+
         GitHubService gitHubService = retrofit.create(GitHubService.class);
         final Call<ArrayList<Person>> call = gitHubService.repoContributors2("persons");
 
@@ -65,7 +69,7 @@ public class MyFragment2 extends Fragment {
 
                         String selectedName = personArrayList.get(i).getName();
                         FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame_main, new MyFragment3().newInstance(selectedName));
                         fragmentTransaction.commit();
                     }
@@ -78,6 +82,25 @@ public class MyFragment2 extends Fragment {
 
             }
         });
+
+        /*
+        사용자 추가 페이지로 이동
+         */
+
+        Button moveAddPerson = (Button) getView().findViewById(R.id.button_add2);
+        moveAddPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyFragment1 moveAddPerson = new MyFragment1();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_main, moveAddPerson);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+
+        });
+
 
     }
 }

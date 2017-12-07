@@ -46,15 +46,13 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.frame_main, new MyFragment1()).commit();
-
+                openAddUser();
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getFragmentManager().beginTransaction().replace(R.id.frame_main, new MyFragment2()).commit();
                 openUserListView();
 
             }
@@ -78,14 +76,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         openUserListView();
     }
 
-    private void openUserListView(){
+    private void openUserListView() {
+        MyFragment2 openUserList = new MyFragment2();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, new MyFragment2()).commit();
+        fragmentTransaction.replace(R.id.frame_main, openUserList).commit();
+    }
+
+    private void openAddUser() {
+        MyFragment1 addPerson = new MyFragment1();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, addPerson);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

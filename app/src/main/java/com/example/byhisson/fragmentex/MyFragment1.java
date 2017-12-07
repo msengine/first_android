@@ -84,8 +84,5 @@ public class MyFragment1 extends Fragment {
                 });
             }
         });
-
     }
-
-
 }
