@@ -1,6 +1,8 @@
 package com.example.byhisson.fragmentex;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -8,9 +10,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +30,7 @@ import static com.example.byhisson.fragmentex.GitHubService.retrofit;
 
 public class MyFragment1 extends Fragment {
 
+    private ArrayList<Person> openPersonList;
 
     // fragment 가 생성될 때 호출되는 부분
     @Override
@@ -63,7 +70,7 @@ public class MyFragment1 extends Fragment {
                 String personHobby = editHobby.getText().toString();
                 String personNationality = editNationality.getText().toString();
 
-                GitHubService gitHubService = retrofit.create(GitHubService.class);
+                final GitHubService gitHubService = retrofit.create(GitHubService.class);
                 final Call<Boolean> call = gitHubService.addPerson(personName, personAddress, personHobby, personNationality);
 
                 call.enqueue(new Callback<Boolean>() {
@@ -73,6 +80,8 @@ public class MyFragment1 extends Fragment {
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
+                        /* 추가 성공 후 리스트 화면으로 이동 */
+                        openUserListView();
                     }
 
                     @Override
@@ -82,7 +91,17 @@ public class MyFragment1 extends Fragment {
                         toast.show();
                     }
                 });
+
             }
         });
+    }
+
+    private void openUserListView() {
+        MyFragment2 openUserList = new MyFragment2();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, openUserList);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
