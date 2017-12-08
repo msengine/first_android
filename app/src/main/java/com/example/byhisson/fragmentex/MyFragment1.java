@@ -1,11 +1,13 @@
 package com.example.byhisson.fragmentex;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +30,6 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class MyFragment1 extends Fragment {
 
-    private ArrayList<Person> openPersonList;
-
     // fragment 가 생성될 때 호출되는 부분
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class MyFragment1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
 
         return inflater.inflate(R.layout.fragment1, container, false);
     }
@@ -75,7 +74,7 @@ public class MyFragment1 extends Fragment {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         /* 추가 성공 후 리스트 화면으로 이동 */
-                        ((MainActivity)getActivity()).openUserListView();
+                        ((MainActivity) getActivity()).openUserListView();
                     }
 
                     @Override
