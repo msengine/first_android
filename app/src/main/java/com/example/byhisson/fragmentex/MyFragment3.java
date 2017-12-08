@@ -1,10 +1,8 @@
 package com.example.byhisson.fragmentex;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.byhisson.fragmentex.GitHubService.retrofit;
+import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
+
 
 /**
  * Created by byhisson on 2017. 11. 27..
@@ -62,8 +59,8 @@ public class MyFragment3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        GitHubService gitHubService = retrofit.create(GitHubService.class);
-        final Call<Person> call = gitHubService.detailPerson("persons", mParam1);
+        DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+        final Call<Person> call = dunkirkHub.detailPerson("persons", mParam1);
 
         call.enqueue(new Callback<Person>() {
             @Override
@@ -107,14 +104,12 @@ public class MyFragment3 extends Fragment {
                 textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
                 textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
 
-                GitHubService gitHubService = retrofit.create(GitHubService.class);
-                final Call<Void> call = gitHubService.delPerson(textDetail1.getText().toString());
+                DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+                final Call<Void> call = dunkirkHub.delPerson(textDetail1.getText().toString());
 
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Toast toast = Toast.makeText(getActivity(), "삭제 성공", Toast.LENGTH_LONG);
-                        toast.show();
                     }
 
                     @Override
@@ -129,6 +124,9 @@ public class MyFragment3 extends Fragment {
                 textDetail2.setText("");
                 textDetail3.setText("");
                 textDetail4.setText("");
+
+                /* 삭제 후 리스트뷰로 이동 */
+                ((MainActivity) getActivity()).openUserListView();
 
             }
         });

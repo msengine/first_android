@@ -1,24 +1,13 @@
 package com.example.byhisson.fragmentex;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.example.byhisson.fragmentex.GitHubService.retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         openUserListView();
     }
 
-    private void openUserListView() {
+    public void openUserListView() {
         MyFragment2 openUserList = new MyFragment2();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -86,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void openAddUser() {
+    public void openAddUser() {
         MyFragment1 addPerson = new MyFragment1();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -95,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void openDelPersonView() {
+    public void openDelPersonView() {
         MyFragment3 delPerson = new MyFragment3();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

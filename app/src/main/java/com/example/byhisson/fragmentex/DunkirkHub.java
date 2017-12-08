@@ -1,14 +1,7 @@
 package com.example.byhisson.fragmentex;
 
-/**
- * Created by byhisson on 2017. 11. 28..
- */
-
-
 import java.util.ArrayList;
-import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,12 +12,15 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
+/**
+ * Created by byhisson on 2017. 12. 8..
+ */
 
-public interface GitHubService {
+public interface DunkirkHub {
 
-   // public static String SERVER_ADRESS = "http://192.168.44.139:8080/";
-   public static String SERVER_ADRESS = "http://210.121.160.82:10002/";
-   // public static String SERVER_ADRESS = "http://192.168.0.5:8080/";
+    // public static String SERVER_ADRESS = "http://192.168.44.139:8080/";
+    public static String SERVER_ADRESS = "http://210.121.160.82:10002/";
+    // public static String SERVER_ADRESS = "http://192.168.0.5:8080/";
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SERVER_ADRESS)
@@ -58,6 +54,5 @@ public interface GitHubService {
 
     @DELETE("persons/{name}")
     Call<Void> delPerson(@Path("name") String name);
-
 
 }
