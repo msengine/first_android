@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.byhisson.fragmentex.GitHubService.retrofit;
+import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 /**
  * Created by byhisson on 2017. 11. 27..
@@ -45,8 +45,8 @@ public class MyFragment2 extends Fragment {
 
         /* 리스트 불러오기 */
 
-        GitHubService gitHubService = retrofit.create(GitHubService.class);
-        final Call<ArrayList<Person>> call = gitHubService.repoContributors2("persons");
+        DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+        final Call<ArrayList<Person>> call = dunkirkHub.repoContributors2("persons");
 
         call.enqueue(new Callback<ArrayList<Person>>() {
             @Override
@@ -84,7 +84,7 @@ public class MyFragment2 extends Fragment {
         moveAddPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveAddPersonView();
+                ((MainActivity)getActivity()).openAddUser();
             }
         });
     }
@@ -95,15 +95,6 @@ public class MyFragment2 extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, detailPerson.newInstance(selectedName));
-        fragmentTransaction.commit();
-    }
-
-    public void moveAddPersonView(){
-        MyFragment1 moveAddPerson = new MyFragment1();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, moveAddPerson);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }

@@ -10,10 +10,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.byhisson.fragmentex.GitHubService.retrofit;
+import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 /**
  * Created by byhisson on 2017. 11. 27..
@@ -70,18 +68,14 @@ public class MyFragment1 extends Fragment {
                 String personHobby = editHobby.getText().toString();
                 String personNationality = editNationality.getText().toString();
 
-                final GitHubService gitHubService = retrofit.create(GitHubService.class);
-                final Call<Boolean> call = gitHubService.addPerson(personName, personAddress, personHobby, personNationality);
+                final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+                final Call<Boolean> call = dunkirkHub.addPerson(personName, personAddress, personHobby, personNationality);
 
                 call.enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        Toast toast = Toast.makeText(getActivity(), "추가 성공", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-
                         /* 추가 성공 후 리스트 화면으로 이동 */
-                        openUserListView();
+                        ((MainActivity)getActivity()).openUserListView();
                     }
 
                     @Override
@@ -94,14 +88,5 @@ public class MyFragment1 extends Fragment {
 
             }
         });
-    }
-
-    private void openUserListView() {
-        MyFragment2 openUserList = new MyFragment2();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, openUserList);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 }
