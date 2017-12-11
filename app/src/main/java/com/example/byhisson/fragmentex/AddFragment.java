@@ -101,7 +101,7 @@ public class AddFragment extends Fragment {
 
                 /* 다이얼로그 호출 */
                 if (verData) {
-                    ((MainActivity) getActivity()).callDialog(dialogMsg + " 값을 입력하세요.");
+                    showError(dialogMsg);
                 }
 
                 if (!verData) {
@@ -113,6 +113,7 @@ public class AddFragment extends Fragment {
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             ((MainActivity) getActivity()).openUserListView();
                         }
+
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
                             Toast toast = Toast.makeText(getActivity(), "추가 실패", Toast.LENGTH_LONG);
@@ -123,6 +124,10 @@ public class AddFragment extends Fragment {
                 }
             }
         });
+    }
+
+    void showError(String msg) {
+        ((MainActivity) getActivity()).callDialog(msg + " 값을 입력하세요.");
     }
 
 }
