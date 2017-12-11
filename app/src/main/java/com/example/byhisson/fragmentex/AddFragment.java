@@ -62,8 +62,6 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                verData = false;
-
                 TextView textName = (TextView) getView().findViewById(R.id.text_add1);
                 TextView textAddr = (TextView) getView().findViewById(R.id.text_add2);
                 TextView textHobby = (TextView) getView().findViewById(R.id.text_add3);
@@ -81,33 +79,39 @@ public class AddFragment extends Fragment {
 
                 /* 입력 데이터 값 검증 */
 
-                if (hasWrongValue(personName))
+                if (hasWrongValue(personName)) {
                     showError(textName);
-                else if (hasWrongValue(personAddress))
-                    showError(textAddr);
-                else if (hasWrongValue(personHobby))
-                    showError(textHobby);
-                else if (hasWrongValue(personNationality))
-                    showError(textNat);
-
-                if (!verData) {
-                    final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-                    final Call<Boolean> call = dunkirkHub.addPerson(personName, personAddress, personHobby, personNationality);
-
-                    call.enqueue(new Callback<Boolean>() {
-                        @Override
-                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                            ((MainActivity) getActivity()).openUserListView();
-                        }
-
-                        @Override
-                        public void onFailure(Call<Boolean> call, Throwable t) {
-                            Toast toast = Toast.makeText(getActivity(), "추가 실패", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                        }
-                    });
+                    return;
                 }
+                if (hasWrongValue(personAddress)) {
+                    showError(textAddr);
+                    return;
+                }
+                if (hasWrongValue(personHobby)) {
+                    showError(textHobby);
+                    return;
+                }
+                if (hasWrongValue(personNationality)) {
+                    showError(textNat);
+                    return;
+                }
+
+                final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+                final Call<Boolean> call = dunkirkHub.addPerson(personName, personAddress, personHobby, personNationality);
+
+                call.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        ((MainActivity) getActivity()).openUserListView();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        Toast toast = Toast.makeText(getActivity(), "추가 실패", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                });
             }
         });
     }
