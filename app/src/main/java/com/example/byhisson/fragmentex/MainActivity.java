@@ -3,9 +3,12 @@ package com.example.byhisson.fragmentex;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout button2 = (LinearLayout) findViewById(R.id.button2);
         LinearLayout button3 = (LinearLayout) findViewById(R.id.button3);
         LinearLayout button4 = (LinearLayout) findViewById(R.id.button4);
-
-        ArrayList<Person> personList = new ArrayList<Person>();
-
-        /* add person object */
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +62,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        openUserListView();
+        if (getFragmentManager().getBackStackEntryCount() < 1) {
+            openUserListView();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     public void openUserListView() {
