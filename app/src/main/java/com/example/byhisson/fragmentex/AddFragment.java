@@ -34,7 +34,6 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 public class AddFragment extends Fragment {
 
     boolean verData = false;
-    String dialogMsg = "";
 
     // fragment 가 생성될 때 호출되는 부분
     @Override
@@ -64,7 +63,6 @@ public class AddFragment extends Fragment {
             public void onClick(View view) {
 
                 verData = false;
-                dialogMsg = "";
 
                 TextView textName = (TextView) getView().findViewById(R.id.text_add1);
                 TextView textAddr = (TextView) getView().findViewById(R.id.text_add2);
@@ -82,27 +80,15 @@ public class AddFragment extends Fragment {
                 String personNationality = editNationality.getText().toString().trim();
 
                 /* 입력 데이터 값 검증 */
-                if (personNationality == null || personNationality.equals("")) {
-                    verData = true;
-                    dialogMsg = textNat.getText().toString();
-                }
-                if (personHobby == null || personHobby.equals("")) {
-                    verData = true;
-                    dialogMsg = textHobby.getText().toString();
-                }
-                if (personAddress == null || personAddress.equals("")) {
-                    verData = true;
-                    dialogMsg = textAddr.getText().toString();
-                }
-                if (personName == null || personName.equals("")) {
-                    verData = true;
-                    dialogMsg = textName.getText().toString();
-                }
 
-                /* 다이얼로그 호출 */
-                if (verData) {
-                    showError(dialogMsg);
-                }
+                if (hasWrongValue(personName))
+                    showError(textName);
+                else if (hasWrongValue(personAddress))
+                    showError(textAddr);
+                else if (hasWrongValue(personHobby))
+                    showError(textHobby);
+                else if (hasWrongValue(personNationality))
+                    showError(textNat);
 
                 if (!verData) {
                     final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
@@ -126,8 +112,12 @@ public class AddFragment extends Fragment {
         });
     }
 
-    void showError(String msg) {
-        ((MainActivity) getActivity()).callDialog(msg + " 값을 입력하세요.");
+    void showError(TextView textView) {
+        verData = true;
+        ((MainActivity) getActivity()).callDialog(textView.getText().toString() + " 값을 입력하세요.");
     }
 
+    Boolean hasWrongValue(String input) {
+        return input == null || input.equals("");
+    }
 }
