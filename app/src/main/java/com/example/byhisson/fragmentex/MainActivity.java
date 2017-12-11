@@ -1,5 +1,6 @@
 package com.example.byhisson.fragmentex;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     String personHobby = "";
     String personNationality = "";
 
+    AlertDialog verDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("lifeCycle", "onResume");
         if (getFragmentManager().getBackStackEntryCount() < 1) {
             openUserListView();
         }
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
+        Log.d("lifeCycle", "onPause");
         super.onPause();
     }
 
@@ -48,11 +53,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAddUser() {
-        MyFragment1 addPerson = new MyFragment1();
+        AddFragment addPerson = new AddFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, addPerson);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void callDialog(String dialogMassege) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.ic_info_outline_black_24dp);
+        builder.setTitle("알림");
+        builder.setMessage(dialogMassege);
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton("NO", null);
+        verDialog = builder.create();
+        verDialog.show();
     }
 }
