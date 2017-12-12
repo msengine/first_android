@@ -41,7 +41,6 @@ public interface DunkirkHub {
             @Field("hobby") String hobby,
             @Field("nationality") String nationality);
 
-
     @GET("{persons}")
     Call<ArrayList<Person>> repoContributors2(
             @Path("persons") String persons);
