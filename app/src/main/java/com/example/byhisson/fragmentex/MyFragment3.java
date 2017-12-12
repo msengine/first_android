@@ -160,13 +160,4 @@ public class MyFragment3 extends Fragment {
         void onFragmentInteraction();
         //void onFragmentInteraction(Uri uri);
     }
-
-    public static String getURLEncode(String content) {
-        try {
-            return URLEncoder.encode(content, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }
