@@ -1,6 +1,7 @@
 package com.example.byhisson.fragmentex;
 
 import android.app.Fragment;
+import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +30,7 @@ public class MyFragment3 extends Fragment {
 
     private static final String PERSON_NAME = "param1";
 
-    private String mParam1;
+    private String mParam1 = "";
 
     private TextView textDetail1;
     private TextView textDetail2;
@@ -60,7 +64,7 @@ public class MyFragment3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-        final Call<Person> call = dunkirkHub.detailPerson("persons", mParam1);
+        final Call<Person> call = dunkirkHub.detailPerson(mParam1);
 
         call.enqueue(new Callback<Person>() {
             @Override
@@ -155,5 +159,14 @@ public class MyFragment3 extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction();
         //void onFragmentInteraction(Uri uri);
+    }
+
+    public static String getURLEncode(String content) {
+        try {
+            return URLEncoder.encode(content, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
