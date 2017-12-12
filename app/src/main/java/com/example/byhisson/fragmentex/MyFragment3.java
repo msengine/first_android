@@ -59,7 +59,6 @@ public class MyFragment3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
         final Call<Person> call = dunkirkHub.detailPerson("persons", mParam1);
 

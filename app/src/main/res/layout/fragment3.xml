@@ -52,7 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:cursorVisible="true"
-            android:ems="8"
             android:textSize="25dp" />
 
     </LinearLayout>
@@ -78,7 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:cursorVisible="true"
-            android:ems="8"
             android:textSize="25dp" />
 
     </LinearLayout>
@@ -104,7 +102,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:cursorVisible="true"
-            android:ems="8"
             android:textSize="25dp" />
 
     </LinearLayout>
