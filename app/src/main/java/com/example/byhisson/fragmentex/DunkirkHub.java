@@ -45,13 +45,11 @@ public interface DunkirkHub {
     Call<ArrayList<Person>> repoContributors2(
             @Path("persons") String persons);
 
-    @FormUrlEncoded
-    @POST("person/detail")
+    @GET("person/{name}")
     Call<Person> detailPerson(
-            @Field("name") String name);
+            @Path("name") String name);
 
-    @FormUrlEncoded
-    @POST("person/delete")
+    @DELETE("person/{name}")
     Call<Void> delPerson(
-            @Field("name") String name);
+            @Path("name") String name);
 }
