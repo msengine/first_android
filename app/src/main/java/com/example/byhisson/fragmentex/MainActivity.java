@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openDetailPersonInfo(int i, ArrayList<Person> personArrayList) {
         String selectedName = personArrayList.get(i).getName();
-        //MyFragment3 detailPerson = new MyFragment3();
+        //UserDetailView detailPerson = new UserDetailView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, MyFragment3.newInstance(selectedName));
