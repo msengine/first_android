@@ -1,47 +1,56 @@
 package com.example.byhisson.fragmentex;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     AlertDialog verDialog;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        context = this;
+        openUserListView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("lifeCycle", "onResume");
-        if (getFragmentManager().getBackStackEntryCount() < 1) {
-            openUserListView();
-        }
+
     }
 
     @Override
     public void onPause() {
-        Log.d("lifeCycle", "onPause");
         super.onPause();
     }
+
+    /*
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //finish();
+            //additional code
+        } else {
+            Log.d("MainActivity", "count != 0");
+            getFragmentManager().popBackStack();
+        }
+    }
+    */
 
     public void openUserListView() {
         MyFragment2 openUserList = new MyFragment2();
@@ -61,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void openDetailPersonInfo(int i, ArrayList<Person> personArrayList) {
+        String selectedName = personArrayList.get(i).getName();
+        //MyFragment3 detailPerson = new MyFragment3();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, MyFragment3.newInstance(selectedName));
+        fragmentTransaction.commit();
+    }
+
     public void callDialog(String dialogMassege) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.drawable.ic_info_outline_black_24dp);
@@ -70,5 +88,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("NO", null);
         verDialog = builder.create();
         verDialog.show();
+    }
+
+    public void clearBackStack() {
+        FragmentManager fm = getFragmentManager();
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+        openUserListView();
     }
 }

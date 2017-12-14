@@ -102,7 +102,7 @@ public class AddFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         LoadingData.hideLoadingDialog();
-                        ((MainActivity) getActivity()).openUserListView();
+                        ((MainActivity) getActivity()).clearBackStack();
                     }
 
                     @Override

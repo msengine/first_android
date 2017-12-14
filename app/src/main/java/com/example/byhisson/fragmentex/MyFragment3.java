@@ -1,6 +1,8 @@
 package com.example.byhisson.fragmentex;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,16 +30,12 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class MyFragment3 extends Fragment {
 
-    private static final String PERSON_NAME = "param1";
-
-    private String mParam1 = "";
+    public static String mParam1 = "";
 
     private TextView textDetail1;
     private TextView textDetail2;
     private TextView textDetail3;
     private TextView textDetail4;
-
-    private OnFragmentInteractionListener mListener;
 
     public MyFragment3() {
         // Required empty public constructor
@@ -45,19 +43,13 @@ public class MyFragment3 extends Fragment {
 
     public static MyFragment3 newInstance(String param1) {
         MyFragment3 fragment = new MyFragment3();
-        Bundle personDetail = new Bundle();                 // 파라미터는 전달할 데이터
-        personDetail.putString(PERSON_NAME, param1);
-        fragment.setArguments(personDetail);
+        mParam1 = param1;
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(PERSON_NAME);
-        }
     }
 
     @Nullable
@@ -85,9 +77,9 @@ public class MyFragment3 extends Fragment {
 
             @Override
             public void onFailure(retrofit2.Call<Person> call, Throwable t) {
-
                 Toast toast = Toast.makeText(getActivity(), "조회 실패", Toast.LENGTH_LONG);
                 toast.show();
+                //((MainActivity) getActivity()).openUserListView();
             }
         });
 
@@ -103,11 +95,6 @@ public class MyFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
-                textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
-                textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
-                textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
-
                 DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
                 final Call<Void> call = dunkirkHub.delPerson(textDetail1.getText().toString());
 
@@ -120,44 +107,19 @@ public class MyFragment3 extends Fragment {
                     public void onFailure(Call<Void> call, Throwable t) {
                         Toast toast = Toast.makeText(getActivity(), "삭제 실패", Toast.LENGTH_LONG);
                         toast.show();
-
                     }
                 });
-
-                textDetail1.setText("");
-                textDetail2.setText("");
-                textDetail3.setText("");
-                textDetail4.setText("");
-
-                /* 삭제 후 리스트뷰로 이동 */
-                ((MainActivity) getActivity()).openUserListView();
+                ((MainActivity) getActivity()).clearBackStack();
+                //((MainActivity) getActivity()).openUserListView();
 
             }
         });
     }
 
-    /*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
-        }
-    }
-*/
-
-/*
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-    */
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction();
-        //void onFragmentInteraction(Uri uri);
+    public void clearTextView() {
+        textDetail1.setText("");
+        textDetail2.setText("");
+        textDetail3.setText("");
+        textDetail4.setText("");
     }
 }
