@@ -62,7 +62,7 @@ public class MyFragment2 extends Fragment {
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        openDetailPersonInfo(i);
+                        ((MainActivity)getActivity()).openDetailPersonInfo(i, personArrayList);
                     }
                 });
 
@@ -84,15 +84,4 @@ public class MyFragment2 extends Fragment {
             }
         });
     }
-
-    public void openDetailPersonInfo(int i){
-        String selectedName = personArrayList.get(i).getName();
-        MyFragment3 detailPerson = new MyFragment3();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, detailPerson.newInstance(selectedName));
-        fragmentTransaction.commit();
-    }
-
-
 }
