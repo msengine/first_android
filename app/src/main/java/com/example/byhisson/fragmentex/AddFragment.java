@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,15 +35,10 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class AddFragment extends Fragment {
 
-    boolean verData = false;
-
-    // fragment 가 생성될 때 호출되는 부분
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    // onCreate 후에 화면을 구성할 때 호훌되는 부분
 
     @Nullable
     @Override
@@ -96,20 +93,22 @@ public class AddFragment extends Fragment {
                     return;
                 }
 
+                LoadingData.showLoadingDialog(getActivity());
+
                 final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
                 final Call<Boolean> call = dunkirkHub.addPerson(personName, personAddress, personHobby, personNationality);
 
                 call.enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        LoadingData.hideLoadingDialog();
                         ((MainActivity) getActivity()).openUserListView();
                     }
 
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
-                        Toast toast = Toast.makeText(getActivity(), "추가 실패", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                        LoadingData.hideLoadingDialog();
+                        serverResponseError();
                     }
                 });
             }
@@ -117,8 +116,11 @@ public class AddFragment extends Fragment {
     }
 
     void showError(TextView textView) {
-        verData = true;
         ((MainActivity) getActivity()).callDialog(textView.getText().toString() + " 값을 입력하세요.");
+    }
+
+    void serverResponseError() {
+        ((MainActivity) getActivity()).callDialog("서버 응답 에러\n다시 시도하세요.");
     }
 
     Boolean hasWrongValue(String input) {
