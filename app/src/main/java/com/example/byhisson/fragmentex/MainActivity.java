@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     */
 
     public void openUserListView() {
-        MyFragment2 openUserList = new MyFragment2();
+        UserListView openUserList = new UserListView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, openUserList);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         //UserDetailView detailPerson = new UserDetailView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, MyFragment3.newInstance(selectedName));
+        fragmentTransaction.replace(R.id.frame_main, UserDetailView.newInstance(selectedName));
         fragmentTransaction.commit();
     }
 

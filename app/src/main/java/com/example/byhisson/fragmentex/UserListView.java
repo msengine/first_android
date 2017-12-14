@@ -1,8 +1,7 @@
 package com.example.byhisson.fragmentex;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -29,7 +28,7 @@ public class UserListView extends Fragment {
 
     private ArrayList<Person> personArrayList;
 
-    private parent;
+    private MainActivity parent;
 
     @Override
     public void onAttach(Activity activity) {
@@ -81,6 +80,6 @@ public class UserListView extends Fragment {
         });
 
         LinearLayout moveAddPerson = (LinearLayout) getView().findViewById(R.id.button_add2);
-        moveAddPerson.setOnClickListener(((View v)) -> parent.openAddUser());
+        moveAddPerson.setOnClickListener((View v) -> parent.openAddUser());
     }
 }

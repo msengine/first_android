@@ -1,5 +1,6 @@
 package com.example.byhisson.fragmentex;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -43,8 +44,8 @@ public class UserDetailView extends Fragment {
         // Required empty public constructor
     }
 
-    public static MyFragment3 newInstance(String param1) {
-        MyFragment3 fragment = new MyFragment3();
+    public static UserDetailView newInstance(String param1) {
+        UserDetailView fragment = new UserDetailView();
         mParam1 = param1;
         return fragment;
     }
@@ -53,7 +54,6 @@ public class UserDetailView extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
         parent = (MainActivity)activity;
     }
 
