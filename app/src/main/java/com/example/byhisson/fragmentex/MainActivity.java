@@ -92,9 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void clearBackStack() {
         FragmentManager fm = getFragmentManager();
-        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+        for (int i = 0; i < fm.getBackStackEntryCount() - 1; ++i) {
             fm.popBackStack();
         }
-        openUserListView();
+    }
+
+    public void oneBackStackLeft() {
+        getFragmentManager().popBackStack();
     }
 }

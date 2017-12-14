@@ -101,6 +101,8 @@ public class MyFragment3 extends Fragment {
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
+                        ((MainActivity) getActivity()).oneBackStackLeft();
+                        ((MainActivity) getActivity()).openUserListView();
                     }
 
                     @Override
@@ -109,8 +111,6 @@ public class MyFragment3 extends Fragment {
                         toast.show();
                     }
                 });
-                ((MainActivity) getActivity()).clearBackStack();
-                //((MainActivity) getActivity()).openUserListView();
 
             }
         });
