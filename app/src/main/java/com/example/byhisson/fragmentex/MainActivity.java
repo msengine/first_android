@@ -36,24 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    /*
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-            //finish();
-            //additional code
-        } else {
-            Log.d("MainActivity", "count != 0");
-            getFragmentManager().popBackStack();
-        }
-    }
-    */
 
     public void openUserListView() {
-        MyFragment2 openUserList = new MyFragment2();
+        UserListView openUserList = new UserListView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, openUserList);
@@ -72,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openDetailPersonInfo(int i, ArrayList<Person> personArrayList) {
         String selectedName = personArrayList.get(i).getName();
-        //MyFragment3 detailPerson = new MyFragment3();
+        //UserDetailView detailPerson = new UserDetailView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, MyFragment3.newInstance(selectedName));
+        fragmentTransaction.replace(R.id.frame_main, UserDetailView.newInstance(selectedName));
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -97,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void oneBackStackLeft() {
+    public void goBack() {
         getFragmentManager().popBackStack();
     }
 }

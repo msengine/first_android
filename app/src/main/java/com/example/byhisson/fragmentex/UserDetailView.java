@@ -1,21 +1,15 @@
 package com.example.byhisson.fragmentex;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Intent;
-import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +22,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
  * Created by byhisson on 2017. 11. 27..
  */
 
-public class MyFragment3 extends Fragment {
+public class UserDetailView extends Fragment {
 
     public static String mParam1 = "";
 
@@ -37,14 +31,23 @@ public class MyFragment3 extends Fragment {
     private TextView textDetail3;
     private TextView textDetail4;
 
-    public MyFragment3() {
+    private MainActivity parent;
+
+    public UserDetailView() {
         // Required empty public constructor
     }
 
-    public static MyFragment3 newInstance(String param1) {
-        MyFragment3 fragment = new MyFragment3();
+    public static UserDetailView newInstance(String param1) {
+        UserDetailView fragment = new UserDetailView();
         mParam1 = param1;
         return fragment;
+    }
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        parent = (MainActivity)activity;
     }
 
     @Override
@@ -79,7 +82,6 @@ public class MyFragment3 extends Fragment {
             public void onFailure(retrofit2.Call<Person> call, Throwable t) {
                 Toast toast = Toast.makeText(getActivity(), "조회 실패", Toast.LENGTH_LONG);
                 toast.show();
-                //((MainActivity) getActivity()).openUserListView();
             }
         });
 
@@ -89,29 +91,23 @@ public class MyFragment3 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Button deleteButton = (Button) getView().findViewById(R.id.button_del);
+        deleteButton.setOnClickListener((View view) -> deleteUser());
+    }
 
-        Button buttonDel = (Button) getView().findViewById(R.id.button_del);
-        buttonDel.setOnClickListener(new View.OnClickListener() {
+    private void deleteUser() {
+        DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+        final Call<Void> call = dunkirkHub.delPerson(textDetail1.getText().toString());
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onClick(View view) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                parent.goBack();
+            }
 
-                DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-                final Call<Void> call = dunkirkHub.delPerson(textDetail1.getText().toString());
-
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        ((MainActivity) getActivity()).oneBackStackLeft();
-                        ((MainActivity) getActivity()).openUserListView();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast toast = Toast.makeText(getActivity(), "삭제 실패", Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                });
-
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast toast = Toast.makeText(getActivity(), "삭제 실패", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }
