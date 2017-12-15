@@ -85,7 +85,7 @@ public class UserDetailView extends Fragment {
             }
         });
 
-        return inflater.inflate(R.layout.fragment3, container, false);
+        return inflater.inflate(R.layout.fragment_detail, container, false);
     }
 
     @Override
@@ -110,12 +110,5 @@ public class UserDetailView extends Fragment {
                 toast.show();
             }
         });
-    }
-
-    public void clearTextView() {
-        textDetail1.setText("");
-        textDetail2.setText("");
-        textDetail3.setText("");
-        textDetail4.setText("");
     }
 }

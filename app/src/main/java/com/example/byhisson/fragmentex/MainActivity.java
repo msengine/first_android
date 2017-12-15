@@ -1,15 +1,10 @@
 package com.example.byhisson.fragmentex;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ComponentName;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -57,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openDetailPersonInfo(int i, ArrayList<Person> personArrayList) {
         String selectedName = personArrayList.get(i).getName();
-        //UserDetailView detailPerson = new UserDetailView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, UserDetailView.newInstance(selectedName));
@@ -74,13 +68,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("NO", null);
         verDialog = builder.create();
         verDialog.show();
-    }
-
-    public void clearBackStack() {
-        FragmentManager fm = getFragmentManager();
-        for (int i = 0; i < fm.getBackStackEntryCount() - 1; ++i) {
-            fm.popBackStack();
-        }
     }
 
     public void goBack() {
