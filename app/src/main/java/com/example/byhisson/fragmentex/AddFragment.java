@@ -37,7 +37,6 @@ public class AddFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        linkControls();
     }
 
     @Override
@@ -55,6 +54,9 @@ public class AddFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        linkControls();
+
         Button submitButton = (Button) getView().findViewById(R.id.button_add);
         submitButton.setOnClickListener((View view) -> onSubmit());
     }
