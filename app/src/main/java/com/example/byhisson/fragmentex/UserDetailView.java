@@ -2,21 +2,14 @@ package com.example.byhisson.fragmentex;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Intent;
-import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,29 +91,23 @@ public class UserDetailView extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Button deleteButton = (Button) getView().findViewById(R.id.button_del);
+        deleteButton.setOnClickListener((View view) -> deleteUser());
+    }
 
-        Button buttonDel = (Button) getView().findViewById(R.id.button_del);
-        buttonDel.setOnClickListener(new View.OnClickListener() {
+    private void deleteUser() {
+        DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+        final Call<Void> call = dunkirkHub.delPerson(textDetail1.getText().toString());
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onClick(View view) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                parent.goBack();
+            }
 
-                DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-                final Call<Void> call = dunkirkHub.delPerson(textDetail1.getText().toString());
-
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        parent.oneBackStackLeft();
-                        parent.openUserListView();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast toast = Toast.makeText(getActivity(), "삭제 실패", Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                });
-
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast toast = Toast.makeText(getActivity(), "삭제 실패", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }

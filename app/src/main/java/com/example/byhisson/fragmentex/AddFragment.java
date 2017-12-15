@@ -1,27 +1,15 @@
 package com.example.byhisson.fragmentex;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +22,6 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
  */
 
 public class AddFragment extends Fragment {
-
     private MainActivity parent;
     private TextView textName;
     private TextView textAddr;
@@ -45,13 +32,13 @@ public class AddFragment extends Fragment {
     private EditText editHobby;
     private EditText editNationality;
 
+    final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkControls();
     }
-
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,64 +49,55 @@ public class AddFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_add, container, false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Button submitButton = (Button) getView().findViewById(R.id.button_add);
+        submitButton.setOnClickListener((View view) -> onSubmit());
+    }
 
-        Button button_frag1 = (Button) getView().findViewById(R.id.button_add);
-        button_frag1.setOnClickListener(new Button.OnClickListener()
-        {
+    private void onSubmit() {
+        String personName = editName.getText().toString().trim();
+        String personAddress = editAddress.getText().toString().trim();
+        String personHobby = editHobby.getText().toString().trim();
+        String personNationality = editNationality.getText().toString().trim();
+        if (hasWrongValue(personName)) {
+            showError(textName);
+            return;
+        }
+        if (hasWrongValue(personAddress)) {
+            showError(textAddr);
+            return;
+        }
+        if (hasWrongValue(personHobby)) {
+            showError(textHobby);
+            return;
+        }
+        if (hasWrongValue(personNationality)) {
+            showError(textNat);
+            return;
+        }
+
+        LoadingData.showLoadingDialog(getActivity());
+        addUser(personName, personAddress, personHobby, personNationality);
+    }
+
+    private void addUser(String personName, String personAddress, String personHobby, String personNationality) {
+        final Call<Boolean> call = dunkirkHub.addPerson(personName, personAddress, personHobby, personNationality);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                LoadingData.hideLoadingDialog();
+                parent.goBack();
+            }
 
             @Override
-            public void onClick(View view) {
-                String personName = editName.getText().toString().trim();
-                String personAddress = editAddress.getText().toString().trim();
-                String personHobby = editHobby.getText().toString().trim();
-                String personNationality = editNationality.getText().toString().trim();
-
-                /* 입력 데이터 값 검증 */
-
-                if (hasWrongValue(personName)) {
-                    showError(textName);
-                    return;
-                }
-                if (hasWrongValue(personAddress)) {
-                    showError(textAddr);
-                    return;
-                }
-                if (hasWrongValue(personHobby)) {
-                    showError(textHobby);
-                    return;
-                }
-                if (hasWrongValue(personNationality)) {
-                    showError(textNat);
-                    return;
-                }
-
-                LoadingData.showLoadingDialog(getActivity());
-
-                final DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-                final Call<Boolean> call = dunkirkHub.addPerson(personName, personAddress, personHobby, personNationality);
-
-                call.enqueue(new Callback<Boolean>() {
-                    @Override
-                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        LoadingData.hideLoadingDialog();
-                        parent.oneBackStackLeft();
-                        parent.openUserListView();
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Boolean> call, Throwable t) {
-                        LoadingData.hideLoadingDialog();
-                        serverResponseError();
-                    }
-                });
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                LoadingData.hideLoadingDialog();
+                serverResponseError();
             }
         });
     }
