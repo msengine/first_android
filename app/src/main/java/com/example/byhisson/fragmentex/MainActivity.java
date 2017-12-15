@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, UserDetailView.newInstance(selectedName));
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

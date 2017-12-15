@@ -35,9 +35,28 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class AddFragment extends Fragment {
 
+    private MainActivity parent;
+    private TextView textName;
+    private TextView textAddr;
+    private TextView textHobby;
+    private TextView textNat;
+    private EditText editName;
+    private EditText editAddress;
+    private EditText editHobby;
+    private EditText editNationality;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        linkControls();
+    }
+
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        parent = (MainActivity)activity;
     }
 
     @Nullable
@@ -53,22 +72,10 @@ public class AddFragment extends Fragment {
 
         Button button_frag1 = (Button) getView().findViewById(R.id.button_add);
         button_frag1.setOnClickListener(new Button.OnClickListener()
-
         {
 
             @Override
             public void onClick(View view) {
-
-                TextView textName = (TextView) getView().findViewById(R.id.text_add1);
-                TextView textAddr = (TextView) getView().findViewById(R.id.text_add2);
-                TextView textHobby = (TextView) getView().findViewById(R.id.text_add3);
-                TextView textNat = (TextView) getView().findViewById(R.id.text_add4);
-
-                EditText editName = (EditText) getView().findViewById(R.id.edittext1);
-                EditText editAddress = (EditText) getView().findViewById(R.id.edittext2);
-                EditText editHobby = (EditText) getView().findViewById(R.id.edittext3);
-                EditText editNationality = (EditText) getView().findViewById(R.id.edittext4);
-
                 String personName = editName.getText().toString().trim();
                 String personAddress = editAddress.getText().toString().trim();
                 String personHobby = editHobby.getText().toString().trim();
@@ -102,8 +109,8 @@ public class AddFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         LoadingData.hideLoadingDialog();
-                        ((MainActivity) getActivity()).oneBackStackLeft();
-                        ((MainActivity) getActivity()).openUserListView();
+                        parent.oneBackStackLeft();
+                        parent.openUserListView();
 
                     }
 
@@ -118,14 +125,26 @@ public class AddFragment extends Fragment {
     }
 
     void showError(TextView textView) {
-        ((MainActivity) getActivity()).callDialog(textView.getText().toString() + " 값을 입력하세요.");
+        parent.callDialog(textView.getText().toString() + " 값을 입력하세요.");
     }
 
     void serverResponseError() {
-        ((MainActivity) getActivity()).callDialog("서버 응답 에러\n다시 시도하세요.");
+        parent.callDialog("서버 응답 에러\n다시 시도하세요.");
     }
 
     Boolean hasWrongValue(String input) {
         return input == null || input.equals("");
+    }
+
+    private void linkControls() {
+        textName = (TextView) getView().findViewById(R.id.text_add1);
+        textAddr = (TextView) getView().findViewById(R.id.text_add2);
+        textHobby = (TextView) getView().findViewById(R.id.text_add3);
+        textNat = (TextView) getView().findViewById(R.id.text_add4);
+
+        editName = (EditText) getView().findViewById(R.id.edittext1);
+        editAddress = (EditText) getView().findViewById(R.id.edittext2);
+        editHobby = (EditText) getView().findViewById(R.id.edittext3);
+        editNationality = (EditText) getView().findViewById(R.id.edittext4);
     }
 }
