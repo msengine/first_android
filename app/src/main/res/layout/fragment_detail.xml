@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f6c3"
+    android:background="@color/white51"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -116,7 +116,7 @@
             android:id="@+id/button_del"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#96ead7"
+            android:background="@color/white54"
             android:text="DELETE" />
 
     </LinearLayout>
@@ -127,7 +127,6 @@
         android:layout_weight="3"
         android:gravity="center"
         android:orientation="vertical">
-
 
         <TextView
             android:layout_width="wrap_content"

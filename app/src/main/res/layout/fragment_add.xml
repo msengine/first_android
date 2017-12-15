@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7e7b4"
+    android:background="@color/white51"
     android:orientation="vertical">
 
 
@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:cursorVisible="true"
             android:ems="8" />
 
     </LinearLayout>
@@ -115,7 +116,7 @@
             android:id="@+id/button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#96ead7"
+            android:background="@color/white54"
             android:text="ADD" />
 
     </LinearLayout>
