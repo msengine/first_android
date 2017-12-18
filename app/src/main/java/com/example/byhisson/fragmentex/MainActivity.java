@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void openDetailPersonInfo(int i, ArrayList<Person> personArrayList) {
-        String selectedName = personArrayList.get(i).getName();
+    public void openDetailPersonInfo(int i, ArrayList<PersonVO> personArrayList) {
+        String selectedName = personArrayList.get(i).name;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, UserDetailView.newInstance(selectedName));
