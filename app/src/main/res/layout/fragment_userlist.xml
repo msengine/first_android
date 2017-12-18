@@ -28,7 +28,7 @@
         android:background="@color/white51">
 
         <ListView
-            android:id="@+id/listview1"
+            android:id="@+id/custom_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
