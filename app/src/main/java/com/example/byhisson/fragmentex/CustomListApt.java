@@ -46,14 +46,14 @@ public class CustomListApt extends ArrayAdapter<PersonVO> {
         PersonHolder holder = (PersonHolder) convertView.getTag();
 
         ImageView typeImagView = holder.typeImageView;
-        TextView textView1 = holder.textView1;
-        TextView textView2 = holder.textView2;
+        TextView nameView = holder.textView1;
+        TextView addressView = holder.textView2;
         ImageView menuImageView = holder.menuImangeView;
 
         final PersonVO vo = datas.get(position);
 
-        textView1.setText(vo.name);
-        textView2.setText(vo.address);
+        nameView.setText(vo.name);
+        addressView.setText(vo.address);
 
         if (vo.nationality.toLowerCase().equals("korea")) {
             typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.kor, null)));
