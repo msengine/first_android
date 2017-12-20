@@ -46,8 +46,8 @@ public class CustomListApt extends ArrayAdapter<PersonVO> {
         PersonHolder holder = (PersonHolder) convertView.getTag();
 
         ImageView typeImagView = holder.typeImageView;
-        TextView nameView = holder.textView1;
-        TextView addressView = holder.textView2;
+        TextView nameView = holder.nameView;
+        TextView addressView = holder.addressView;
         ImageView menuImageView = holder.menuImangeView;
 
         final PersonVO vo = datas.get(position);

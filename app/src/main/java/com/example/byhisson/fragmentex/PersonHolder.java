@@ -14,14 +14,14 @@ import android.widget.TextView;
 public class PersonHolder {
 
     public ImageView typeImageView;
-    public TextView textView1;
-    public TextView textView2;
+    public TextView nameView;
+    public TextView addressView;
     public ImageView menuImangeView;
 
     public PersonHolder(View root){
         typeImageView = (ImageView)root.findViewById(R.id.custom_item_type_image);
-        textView1 = (TextView)root.findViewById(R.id.custom_item1);
-        textView2 = (TextView)root.findViewById(R.id.custom_item2);
+        nameView = (TextView)root.findViewById(R.id.custom_item_name);
+        addressView = (TextView)root.findViewById(R.id.custom_item_address);
         menuImangeView = (ImageView)root.findViewById(R.id.custom_item_menu);
     }
 
