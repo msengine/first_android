@@ -52,4 +52,9 @@ public interface DunkirkHub {
     @DELETE("person/{name}")
     Call<Void> delPerson(
             @Path("name") String name);
+
+    @GET("{group}")
+    Call<ArrayList<GroupVO>> getGroupList(
+            @Path("group") String group);
 }
+

@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        openUserListView();
+        openGroupListView();
+        //openUserListView();
     }
 
     @Override
@@ -31,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    public void openGroupListView(){
+        GroupListView openGroupList = new GroupListView();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, openGroupList);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     public void openUserListView() {
         UserListView openUserList = new UserListView();
