@@ -26,7 +26,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class UserListView extends Fragment {
 
-    private ArrayList<Person> personArrayList;
+    private ArrayList<PersonVO> personArrayList;
 
     private MainActivity parent;
 
@@ -47,22 +47,15 @@ public class UserListView extends Fragment {
         super.onResume();
 
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-        final Call<ArrayList<Person>> call = dunkirkHub.repoContributors2("persons");
+        final Call<ArrayList<PersonVO>> call = dunkirkHub.repoContributors2("persons");
 
-        call.enqueue(new Callback<ArrayList<Person>>() {
+        call.enqueue(new Callback<ArrayList<PersonVO>>() {
             @Override
-            public void onResponse(Call<ArrayList<Person>> call, Response<ArrayList<Person>> response) {
+            public void onResponse(Call<ArrayList<PersonVO>> call, Response<ArrayList<PersonVO>> response) {
                 personArrayList = response.body();
 
-                ListView listview = (ListView) getView().findViewById(R.id.listview1);
-                ListViewAdapter adapter = new ListViewAdapter();
-
-                for (int i = 0; i < personArrayList.size(); i++) {
-                    adapter.addItem(
-                            ContextCompat.getDrawable(getActivity(),
-                                    R.drawable.ic_face_black_24dp),
-                            personArrayList.get(i).getName());
-                }
+                ListView listview = (ListView) getView().findViewById(R.id.custom_listview);
+                CustomListApt adapter = new CustomListApt(getActivity(), R.layout.custom_item, personArrayList);
 
                 listview.setAdapter(adapter);
 
@@ -76,7 +69,7 @@ public class UserListView extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Person>> call, Throwable t) {}
+            public void onFailure(Call<ArrayList<PersonVO>> call, Throwable t) {}
         });
 
         LinearLayout moveAddPerson = (LinearLayout) getView().findViewById(R.id.button_add2);
