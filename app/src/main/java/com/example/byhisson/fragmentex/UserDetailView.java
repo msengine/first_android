@@ -59,27 +59,27 @@ public class UserDetailView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-        final Call<Person> call = dunkirkHub.detailPerson(mParam1);
+        final Call<PersonVO> call = dunkirkHub.detailPerson(mParam1);
 
-        call.enqueue(new Callback<Person>() {
+        call.enqueue(new Callback<PersonVO>() {
             @Override
-            public void onResponse(retrofit2.Call<Person> call, Response<Person> response) {
+            public void onResponse(retrofit2.Call<PersonVO> call, Response<PersonVO> response) {
 
                 textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
                 textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
                 textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
                 textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
 
-                Person selectedPerson = response.body();
+                PersonVO selectedPerson = (PersonVO)response.body();
 
-                textDetail1.setText(selectedPerson.getName());
-                textDetail2.setText(selectedPerson.getAddress());
-                textDetail3.setText(selectedPerson.getHobby());
-                textDetail4.setText(selectedPerson.getNationality());
+                textDetail1.setText(selectedPerson.name);
+                textDetail2.setText(selectedPerson.address);
+                textDetail3.setText(selectedPerson.hobby);
+                textDetail4.setText(selectedPerson.nationality);
             }
 
             @Override
-            public void onFailure(retrofit2.Call<Person> call, Throwable t) {
+            public void onFailure(retrofit2.Call<PersonVO> call, Throwable t) {
                 Toast toast = Toast.makeText(getActivity(), "조회 실패", Toast.LENGTH_LONG);
                 toast.show();
             }

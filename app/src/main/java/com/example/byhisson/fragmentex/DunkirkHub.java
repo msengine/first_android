@@ -46,7 +46,7 @@ public interface DunkirkHub {
             @Path("persons") String persons);
 
     @GET("person/{name}")
-    Call<Person> detailPerson(
+    Call<PersonVO> detailPerson(
             @Path("name") String name);
 
     @DELETE("person/{name}")
