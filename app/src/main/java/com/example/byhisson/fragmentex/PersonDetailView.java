@@ -22,7 +22,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
  * Created by byhisson on 2017. 11. 27..
  */
 
-public class UserDetailView extends Fragment {
+public class PersonDetailView extends Fragment {
 
     public static String mParam1 = "";
 
@@ -33,12 +33,12 @@ public class UserDetailView extends Fragment {
 
     private MainActivity parent;
 
-    public UserDetailView() {
+    public PersonDetailView() {
         // Required empty public constructor
     }
 
-    public static UserDetailView newInstance(String param1) {
-        UserDetailView fragment = new UserDetailView();
+    public static PersonDetailView newInstance(String param1) {
+        PersonDetailView fragment = new PersonDetailView();
         mParam1 = param1;
         return fragment;
     }
@@ -63,7 +63,7 @@ public class UserDetailView extends Fragment {
 
         call.enqueue(new Callback<Person>() {
             @Override
-            public void onResponse(retrofit2.Call<Person> call, Response<Person> response) {
+            public void onResponse(Call<Person> call, Response<Person> response) {
 
                 textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
                 textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
@@ -79,7 +79,7 @@ public class UserDetailView extends Fragment {
             }
 
             @Override
-            public void onFailure(retrofit2.Call<Person> call, Throwable t) {
+            public void onFailure(Call<Person> call, Throwable t) {
                 Toast toast = Toast.makeText(getActivity(), "조회 실패", Toast.LENGTH_LONG);
                 toast.show();
             }

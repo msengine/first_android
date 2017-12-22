@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/group_item_type_image"
+        android:id="@+id/group_item_image"
         android:layout_width="32dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/group_item_type_image" />
+        android:layout_toRightOf="@id/group_item_image" />
 
     <TextView
         android:id="@+id/group_item_organization"

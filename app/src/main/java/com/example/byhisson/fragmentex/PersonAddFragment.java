@@ -21,7 +21,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
  * Created by byhisson on 2017. 11. 27..
  */
 
-public class AddFragment extends Fragment {
+public class PersonAddFragment extends Fragment {
     private MainActivity parent;
     private TextView textName;
     private TextView textAddr;

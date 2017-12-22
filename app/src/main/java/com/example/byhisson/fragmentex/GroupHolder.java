@@ -19,7 +19,7 @@ public class GroupHolder {
     public ImageView menuImangeView;
 
     public GroupHolder(View root) {
-        typeImageView = (ImageView) root.findViewById(R.id.group_item_type_image);
+        typeImageView = (ImageView) root.findViewById(R.id.group_item_image);
         nameView = (TextView) root.findViewById(R.id.group_item_name);
         organisationView = (TextView) root.findViewById(R.id.group_item_organization);
         menuImangeView = (ImageView) root.findViewById(R.id.group_item_menu);

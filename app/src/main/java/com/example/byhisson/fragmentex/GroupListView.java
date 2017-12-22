@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +23,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class GroupListView extends Fragment{
 
-    private ArrayList<GroupVO>  groupArrayList;
+    private ArrayList<Group>  groupArrayList;
     private MainActivity parent;
 
     @Override
@@ -44,15 +43,15 @@ public class GroupListView extends Fragment{
         super.onResume();
 
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-        final Call<ArrayList<GroupVO>> call = dunkirkHub.getGroupList("group");
+        final Call<ArrayList<Group>> call = dunkirkHub.getGroupList("group");
 
-        call.enqueue(new Callback<ArrayList<GroupVO>>() {
+        call.enqueue(new Callback<ArrayList<Group>>() {
             @Override
-            public void onResponse(Call<ArrayList<GroupVO>> call, Response<ArrayList<GroupVO>> response) {
+            public void onResponse(Call<ArrayList<Group>> call, Response<ArrayList<Group>> response) {
                 groupArrayList = response.body();
 
                 ListView groupListView= (ListView)getView().findViewById(R.id.group_listview);
-                GroupListAdt adapter = new GroupListAdt(getActivity(), R.layout.group_custom_item, groupArrayList);
+                GroupListAdapter adapter = new GroupListAdapter(getActivity(), R.layout.group_custom_item, groupArrayList);
                 groupListView.setAdapter(adapter);
 
                 groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +64,7 @@ public class GroupListView extends Fragment{
             }
 
             @Override
-            public void onFailure(Call<ArrayList<GroupVO>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Group>> call, Throwable t) {
 
             }
         });

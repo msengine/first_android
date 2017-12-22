@@ -17,14 +17,20 @@ import java.util.ArrayList;
  * Created by byhisson on 2017. 12. 21..
  */
 
-public class GroupListAdt extends ArrayAdapter<GroupVO> {
+public class GroupListAdapter extends ArrayAdapter<Group> {
 
 
     Context context;
     int resId;
-    ArrayList<GroupVO> datas;
+    ArrayList<Group> datas;
+    Group group;
 
-    public GroupListAdt(Context context, int resId, ArrayList<GroupVO> datas) {
+    ImageView typeImagView;
+    TextView nameView;
+    TextView organisation;
+    ImageView menuImageView;
+
+    public GroupListAdapter(Context context, int resId, ArrayList<Group> datas) {
         super(context, resId);
         this.context = context;
         this.resId = resId;
@@ -47,33 +53,35 @@ public class GroupListAdt extends ArrayAdapter<GroupVO> {
         }
         GroupHolder holder = (GroupHolder) convertView.getTag();
 
-        ImageView typeImagView = holder.typeImageView;
-        TextView nameView = holder.nameView;
-        TextView organisation = holder.organisationView;
-        ImageView menuImageView = holder.menuImangeView;
+        typeImagView = holder.typeImageView;
+        nameView = holder.nameView;
+        organisation = holder.organisationView;
+        menuImageView = holder.menuImangeView;
 
-        final GroupVO vo = datas.get(position);
-
-        nameView.setText(vo.getGroupName());
-        organisation.setText(vo.getGroupOrganisation());
-
-        if (vo.getGroupOrganisation().equals("company")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
-        } else if (vo.getGroupOrganisation().equals("university")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_location_city_black_24dp, null)));
-        } else if (vo.getGroupOrganisation().equals("church")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_church_50dp, null)));
-        }else {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
-        }
+        group = datas.get(position);
+        nameView.setText(group.getGroupName());
+        organisation.setText(group.getGroupOrganisation());
+        getImageOfOrganization(group.getGroupOrganisation());
 
         menuImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(context, vo.getGroupId() + " menu click", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(context, group.getGroupId() + " menu click", Toast.LENGTH_LONG);
                 toast.show();
             }
         });
         return convertView;
+    }
+
+    public void getImageOfOrganization(String organization) {
+        if (organization.equals("company")) {
+            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
+        } else if (organization.equals("university")) {
+            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_location_city_black_24dp, null)));
+        } else if (organization.equals("church")) {
+            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_church_50dp, null)));
+        } else {
+            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
+        }
     }
 }
