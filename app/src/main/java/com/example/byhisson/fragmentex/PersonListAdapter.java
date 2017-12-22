@@ -17,12 +17,12 @@ import java.util.ArrayList;
  * Created by byhisson on 2017. 12. 18..
  */
 
-public class CustomListApt extends ArrayAdapter<PersonVO> {
+public class CustomListAdapter extends ArrayAdapter<Person> {
     Context context;
     int resId;
-    ArrayList<PersonVO> datas;
+    ArrayList<Person> datas;
 
-    public CustomListApt(Context context, int resId, ArrayList<PersonVO> datas) {
+    public CustomListAdapter(Context context, int resId, ArrayList<Person> datas) {
         super(context, resId);
         this.context = context;
         this.resId = resId;
@@ -50,7 +50,7 @@ public class CustomListApt extends ArrayAdapter<PersonVO> {
         TextView addressView = holder.addressView;
         ImageView menuImageView = holder.menuImangeView;
 
-        final PersonVO vo = datas.get(position);
+        final Person vo = datas.get(position);
 
         nameView.setText(vo.name);
         addressView.setText(vo.address);

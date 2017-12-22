@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
 
 public class UserListView extends Fragment {
 
-    private ArrayList<PersonVO> personArrayList;
+    private ArrayList<Person> personArrayList;
 
     private MainActivity parent;
 
@@ -47,15 +46,15 @@ public class UserListView extends Fragment {
         super.onResume();
 
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-        final Call<ArrayList<PersonVO>> call = dunkirkHub.repoContributors2("persons");
+        final Call<ArrayList<Person>> call = dunkirkHub.repoContributors2("persons");
 
-        call.enqueue(new Callback<ArrayList<PersonVO>>() {
+        call.enqueue(new Callback<ArrayList<Person>>() {
             @Override
-            public void onResponse(Call<ArrayList<PersonVO>> call, Response<ArrayList<PersonVO>> response) {
+            public void onResponse(Call<ArrayList<Person>> call, Response<ArrayList<Person>> response) {
                 personArrayList = response.body();
 
                 ListView listview = (ListView) getView().findViewById(R.id.custom_listview);
-                CustomListApt adapter = new CustomListApt(getActivity(), R.layout.custom_item, personArrayList);
+                CustomListAdapter adapter = new CustomListAdapter(getActivity(), R.layout.custom_item, personArrayList);
 
                 listview.setAdapter(adapter);
 
@@ -69,7 +68,7 @@ public class UserListView extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<PersonVO>> call, Throwable t) {}
+            public void onFailure(Call<ArrayList<Person>> call, Throwable t) {}
         });
 
         LinearLayout moveAddPerson = (LinearLayout) getView().findViewById(R.id.button_add2);

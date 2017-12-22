@@ -4,13 +4,13 @@ package com.example.byhisson.fragmentex;
  * Created by byhisson on 2017. 12. 21..
  */
 
-public class GroupVO {
+public class Group {
 
     private String groupId;
     private String groupName;
     private String groupOrganisation;
 
-    public GroupVO(String groupId, String groupName, String groupOrganisation) {
+    public Group(String groupId, String groupName, String groupOrganisation) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupOrganisation = groupOrganisation;
