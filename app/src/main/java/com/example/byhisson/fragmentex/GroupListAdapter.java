@@ -3,6 +3,7 @@ package com.example.byhisson.fragmentex;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
     Context context;
     int resId;
     ArrayList<Group> datas;
-    Group group;
+
 
     ImageView typeImagView;
     TextView nameView;
@@ -58,7 +59,8 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
         organisation = holder.organisationView;
         menuImageView = holder.menuImangeView;
 
-        group = datas.get(position);
+        final Group group = datas.get(position);
+
         nameView.setText(group.getGroupName());
         organisation.setText(group.getGroupOrganisation());
         getImageOfOrganization(group.getGroupOrganisation());

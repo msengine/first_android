@@ -27,12 +27,9 @@ public interface DunkirkHub {
             .build();
 
     //GET, POST, DELETE, PUT 메소드를 인터페이스에 구현하여 사용할 수 있다
-/*
-    @GET("repos/{owner}/{repo}/contributors")
-    Call<List<Contributor>> repoContributors(
-            @Path("owner") String owner, @Path("repo") String repo);
 
-*/
+    /* Person Control */
+
     @FormUrlEncoded
     @POST("persons")
     Call<Boolean> addPerson(
@@ -53,8 +50,16 @@ public interface DunkirkHub {
     Call<Void> delPerson(
             @Path("name") String name);
 
+     /* Person Control */
+
     @GET("{group}")
     Call<ArrayList<Group>> getGroupList(
             @Path("group") String group);
+
+    @FormUrlEncoded
+    @POST("group")
+    Call<Boolean> addGroup(
+            @Field("groupName") String groupName,
+            @Field("groupOrganisation") String groupOrganisation);
 }
 
