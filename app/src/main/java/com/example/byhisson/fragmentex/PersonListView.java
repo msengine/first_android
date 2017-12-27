@@ -22,7 +22,7 @@ import static com.example.byhisson.fragmentex.DunkirkHub.retrofit;
  * Created by byhisson on 2017. 11. 27..
  */
 
-public class UserDetailView extends Fragment {
+public class PersonListView extends Fragment {
 
     public static String mParam1 = "";
 
@@ -33,12 +33,12 @@ public class UserDetailView extends Fragment {
 
     private MainActivity parent;
 
-    public UserDetailView() {
+    public PersonListView() {
         // Required empty public constructor
     }
 
-    public static UserDetailView newInstance(String param1) {
-        UserDetailView fragment = new UserDetailView();
+    public static PersonListView newInstance(String param1) {
+        PersonListView fragment = new PersonListView();
         mParam1 = param1;
         return fragment;
     }
@@ -59,18 +59,18 @@ public class UserDetailView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
-        final Call<PersonVO> call = dunkirkHub.detailPerson(mParam1);
+        final Call<Person> call = dunkirkHub.detailPerson(mParam1);
 
-        call.enqueue(new Callback<PersonVO>() {
+        call.enqueue(new Callback<Person>() {
             @Override
-            public void onResponse(retrofit2.Call<PersonVO> call, Response<PersonVO> response) {
+            public void onResponse(Call<Person> call, Response<Person> response) {
 
                 textDetail1 = (TextView) getView().findViewById(R.id.text_detail1);
                 textDetail2 = (TextView) getView().findViewById(R.id.text_detail2);
                 textDetail3 = (TextView) getView().findViewById(R.id.text_detail3);
                 textDetail4 = (TextView) getView().findViewById(R.id.text_detail4);
 
-                PersonVO selectedPerson = (PersonVO)response.body();
+                Person selectedPerson = (Person)response.body();
 
                 textDetail1.setText(selectedPerson.name);
                 textDetail2.setText(selectedPerson.address);
@@ -79,7 +79,7 @@ public class UserDetailView extends Fragment {
             }
 
             @Override
-            public void onFailure(retrofit2.Call<PersonVO> call, Throwable t) {
+            public void onFailure(Call<Person> call, Throwable t) {
                 Toast toast = Toast.makeText(getActivity(), "조회 실패", Toast.LENGTH_LONG);
                 toast.show();
             }

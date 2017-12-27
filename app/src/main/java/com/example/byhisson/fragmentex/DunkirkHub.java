@@ -42,14 +42,19 @@ public interface DunkirkHub {
             @Field("nationality") String nationality);
 
     @GET("{persons}")
-    Call<ArrayList<PersonVO>> repoContributors2(
+    Call<ArrayList<Person>> repoContributors2(
             @Path("persons") String persons);
 
     @GET("person/{name}")
-    Call<PersonVO> detailPerson(
+    Call<Person> detailPerson(
             @Path("name") String name);
 
     @DELETE("person/{name}")
     Call<Void> delPerson(
             @Path("name") String name);
+
+    @GET("{group}")
+    Call<ArrayList<Group>> getGroupList(
+            @Path("group") String group);
 }
+

@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        openUserListView();
+        openGroupListView();
+        //openUserListView();
     }
 
     @Override
@@ -31,9 +32,17 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    public void openGroupListView(){
+        GroupListView openGroupList = new GroupListView();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, openGroupList);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     public void openUserListView() {
-        UserListView openUserList = new UserListView();
+        PersonListView openUserList = new PersonListView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, openUserList);
@@ -42,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAddUser() {
-        AddFragment addPerson = new AddFragment();
+        PersonAddFragment addPerson = new PersonAddFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, addPerson);
@@ -50,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void openDetailPersonInfo(int i, ArrayList<PersonVO> personArrayList) {
+    public void openDetailPersonInfo(int i, ArrayList<Person> personArrayList) {
         String selectedName = personArrayList.get(i).name;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, UserDetailView.newInstance(selectedName));
+        fragmentTransaction.replace(R.id.frame_main, PersonDetailView.newInstance(selectedName));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

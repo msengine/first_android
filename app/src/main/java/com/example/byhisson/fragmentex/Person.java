@@ -7,7 +7,7 @@ package com.example.byhisson.fragmentex;
  * 성능상 함수를 이용하는 것보다 변수에 직접 접근하는 것이 좋지 않을까?
  */
 
-public class PersonVO {
+public class Person {
 
     public String name;
     public String address;

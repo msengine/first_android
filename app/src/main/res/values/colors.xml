@@ -4,11 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="dialogIconBackground">#458b74</color>
-    <color name="blue55">#011f4b</color>
-    <color name="blue54">#03396c</color>
-    <color name="blue53">#005b96</color>
-    <color name="blue52">#6497b1</color>
-    <color name="blue51">#b3cde0</color>
+
+    <color name="msblue51">#ffffff</color>
+    <color name="msblue52">#1888C9</color>
+    <color name="msblue53">#1256A7</color>
+    <color name="msblue54">#174287</color>
+    <color name="msblue55">#242F5D</color>
+
     <color name="white51">#faf0e6</color>
     <color name="white52">#fff5ee</color>
     <color name="white53">#fdf5e6</color>
