@@ -11,18 +11,18 @@ import android.widget.TextView;
  * 호출하지 않고 저장된 뷰를 다시 이용하도록 한다
  */
 
-public class GroupHolder {
+public class GroupReuseItemView {
 
     public ImageView typeImageView;
     public TextView nameView;
-    public TextView organisationView;
-    public ImageView menuImangeView;
+    public TextView organizationView;
+    public ImageView menuImageView;
 
-    public GroupHolder(View root) {
+    public GroupReuseItemView(View root) {
         typeImageView = (ImageView) root.findViewById(R.id.group_item_image);
         nameView = (TextView) root.findViewById(R.id.group_item_name);
-        organisationView = (TextView) root.findViewById(R.id.group_item_organization);
-        menuImangeView = (ImageView) root.findViewById(R.id.group_item_menu);
+        organizationView = (TextView) root.findViewById(R.id.group_item_organization);
+        menuImageView = (ImageView) root.findViewById(R.id.group_item_menu);
     }
 
 }

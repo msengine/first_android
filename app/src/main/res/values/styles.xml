@@ -10,9 +10,9 @@
 
     <style name="BeautifulBlue" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="colorPrimary">@color/white51</item>
+        <item name="colorPrimary">@color/white55</item>
         <item name="colorPrimaryDark">@color/white52</item>
-        <item name="colorAccent">@color/white53</item>
+        <item name="colorAccent">@color/white51</item>
     </style>
 
 </resources>

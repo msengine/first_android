@@ -19,16 +19,10 @@ import java.util.ArrayList;
 
 public class GroupListAdapter extends ArrayAdapter<Group> {
 
-
     Context context;
     int resId;
     ArrayList<Group> datas;
-    Group group;
-
-    ImageView typeImagView;
-    TextView nameView;
-    TextView organisation;
-    ImageView menuImageView;
+    GroupReuseItemView itemView;
 
     public GroupListAdapter(Context context, int resId, ArrayList<Group> datas) {
         super(context, resId);
@@ -48,40 +42,41 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
-            GroupHolder holder = new GroupHolder(convertView);
-            convertView.setTag(holder);
+            GroupReuseItemView itemView = new GroupReuseItemView(convertView);
+            convertView.setTag(itemView);
         }
-        GroupHolder holder = (GroupHolder) convertView.getTag();
+        itemView = (GroupReuseItemView) convertView.getTag();
 
-        typeImagView = holder.typeImageView;
-        nameView = holder.nameView;
-        organisation = holder.organisationView;
-        menuImageView = holder.menuImangeView;
+        setGroupInfo(itemView, position);
 
-        group = datas.get(position);
-        nameView.setText(group.getGroupName());
-        organisation.setText(group.getGroupOrganisation());
-        getImageOfOrganization(group.getGroupOrganisation());
-
-        menuImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast toast = Toast.makeText(context, group.getGroupId() + " menu click", Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
         return convertView;
     }
 
-    public void getImageOfOrganization(String organization) {
+    public void setGroupInfo(GroupReuseItemView groupInfo, int position){
+        final Group group = datas.get(position);
+
+        itemView.nameView.setText(group.getName());
+        itemView.organizationView.setText(group.getOrganization());
+        setImageOfOrganization(group.getOrganization());
+
+        itemView.menuImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast = Toast.makeText(context, group.getId() + " menu click", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+    }
+
+    public void setImageOfOrganization(String organization) {
         if (organization.equals("company")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
         } else if (organization.equals("university")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_location_city_black_24dp, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_location_city_black_24dp, null)));
         } else if (organization.equals("church")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_church_50dp, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_church_50dp, null)));
         } else {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_domain_black_24dp, null)));
         }
     }
 }

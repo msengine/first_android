@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void openAddGroup(){
+        GroupAddFragment groupAddFragment = new GroupAddFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, groupAddFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void openUserListView() {
         PersonListView openUserList = new PersonListView();
         FragmentManager fragmentManager = getFragmentManager();
