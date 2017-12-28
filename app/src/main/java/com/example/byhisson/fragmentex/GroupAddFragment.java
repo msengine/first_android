@@ -52,10 +52,6 @@ public class GroupAddFragment extends Fragment {
         super.onResume();
 
         linkControls();
-
-        Button submitButton = (Button) getView().findViewById(R.id.button_group_add);
-        submitButton.setOnClickListener((View view) -> onSubmit());
-
     }
 
     private void onSubmit() {
@@ -107,8 +103,10 @@ public class GroupAddFragment extends Fragment {
 
     private void linkControls() {
         textGroupName = getView().findViewById(R.id.text_group_name);
-        textGroupOrganisation = getView().findViewById(R.id.text_group_organisation);
+        textGroupOrganisation = getView().findViewById(R.id.text_group_organization);
         editGroupName = getView().findViewById(R.id.group_add_name);
-        editGroupOrganisation = getView().findViewById(R.id.group_add_organisation);
+        editGroupOrganisation = getView().findViewById(R.id.group_add_organization);
+        Button submitButton = (Button) getView().findViewById(R.id.button_group_add);
+        submitButton.setOnClickListener((View view) -> onSubmit());
     }
 }

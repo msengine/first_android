@@ -59,7 +59,7 @@ public interface DunkirkHub {
     @FormUrlEncoded
     @POST("group")
     Call<Boolean> addGroup(
-            @Field("groupName") String groupName,
-            @Field("groupOrganisation") String groupOrganisation);
+            @Field("name") String name,
+            @Field("organization") String organization);
 }
 

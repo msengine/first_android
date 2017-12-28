@@ -6,37 +6,37 @@ package com.example.byhisson.fragmentex;
 
 public class Group {
 
-    private String groupId;
-    private String groupName;
-    private String groupOrganisation;
+    private String id;
+    private String name;
+    private String organization;
 
-    public Group(String groupId, String groupName, String groupOrganisation) {
-        this.groupId = groupId;
-        this.groupName = groupName;
-        this.groupOrganisation = groupOrganisation;
+    public Group(String id, String name, String organization) {
+        this.id = id;
+        this.name = name;
+        this.organization = organization;
     }
 
-    public String getGroupId() {
-        return this.groupId;
+    public String getId() {
+        return this.id;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setGroupOrganisation(String groupOrganisation) {
-        this.groupOrganisation = groupOrganisation;
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getName() {
+        return name;
     }
 
-    public String getGroupOrganisation() {
-        return groupOrganisation;
+    public String getOrganization() {
+        return organization;
     }
 }

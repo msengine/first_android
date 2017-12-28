@@ -42,10 +42,12 @@ public class GroupListView extends Fragment{
     @Override
     public void onResume(){
         super.onResume();
+        openGroupList();
+    }
 
+    public void openGroupList(){
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
         final Call<ArrayList<Group>> call = dunkirkHub.getGroupList("group");
-
         call.enqueue(new Callback<ArrayList<Group>>() {
             @Override
             public void onResponse(Call<ArrayList<Group>> call, Response<ArrayList<Group>> response) {
@@ -63,14 +65,12 @@ public class GroupListView extends Fragment{
                 });
 
             }
-
             @Override
             public void onFailure(Call<ArrayList<Group>> call, Throwable t) {
 
             }
         });
-
-        LinearLayout moveAddPerson = (LinearLayout) getView().findViewById(R.id.button_grouplist_add);
-        moveAddPerson.setOnClickListener((View v) -> parent.openAddGroup());
+        LinearLayout moveAddGroup = (LinearLayout) getView().findViewById(R.id.button_grouplist_add);
+        moveAddGroup.setOnClickListener((View v) -> parent.openAddGroup());
     }
 }
