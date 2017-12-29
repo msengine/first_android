@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
     Context context;
     int resId;
     ArrayList<Group> datas;
-    GroupReuseItemView itemView;
+    GroupListItemView itemView;
 
     public GroupListAdapter(Context context, int resId, ArrayList<Group> datas) {
         super(context, resId);
@@ -42,17 +40,17 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
-            GroupReuseItemView itemView = new GroupReuseItemView(convertView);
+            GroupListItemView itemView = new GroupListItemView(convertView);
             convertView.setTag(itemView);
         }
-        itemView = (GroupReuseItemView) convertView.getTag();
+        itemView = (GroupListItemView) convertView.getTag();
 
-        setGroupInfo(itemView, position);
+        setGroupInfo(position);
 
         return convertView;
     }
 
-    public void setGroupInfo(GroupReuseItemView groupInfo, int position){
+    public void setGroupInfo(int position){
         final Group group = datas.get(position);
 
         itemView.nameView.setText(group.getName());
