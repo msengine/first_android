@@ -8,11 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="BeautifulBlue" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="BeautifulBlue" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimary">@color/white55</item>
         <item name="colorPrimaryDark">@color/white52</item>
         <item name="colorAccent">@color/white51</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="titleTextStyle">@style/MyTitleTextStyle</item>
+    </style>
+
+    <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/dialogIconBackground</item>
     </style>
 
 </resources>

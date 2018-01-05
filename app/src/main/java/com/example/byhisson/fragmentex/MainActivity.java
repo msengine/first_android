@@ -4,7 +4,12 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,8 +22,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //openGroupListView();
-        openUserListView();
+        Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolar);
+        setSupportActionBar(mainToolbar);
+
+        openGroupListView();
+        //openUserListView();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
@@ -32,7 +47,27 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public void openGroupListView(){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        ActionBar ab = getSupportActionBar();
+
+        switch (id) {
+            case R.id.action_group_list:
+                ab.setTitle("Group Management");
+                openGroupListView();
+                return true;
+            case R.id.action_person_list:
+                ab.setTitle("Person Management");
+                openUserListView();
+                return true;
+            default:
+                Toast.makeText(this, "default", Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void openGroupListView() {
         GroupListView openGroupList = new GroupListView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -41,11 +76,20 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void openAddGroup(){
+    public void openAddGroup() {
         GroupAddFragment groupAddFragment = new GroupAddFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_main, groupAddFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void openGroupMemberListView(Group group){
+        GroupMemberListView groupMemberListView = new GroupMemberListView();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, groupMemberListView.newInstance(group));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -57,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_main, openUserList);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void openAddGroupMemberList(){
+
     }
 
     public void openAddUser() {
@@ -91,4 +139,5 @@ public class MainActivity extends AppCompatActivity {
     public void goBack() {
         getFragmentManager().popBackStack();
     }
+
 }

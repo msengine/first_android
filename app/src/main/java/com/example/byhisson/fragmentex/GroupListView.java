@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,7 @@ public class GroupListView extends Fragment{
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         //parent.openDetailGroupInfo(i, groupArrayList);
+                        parent.openGroupMemberListView(groupArrayList.get(i));
                     }
                 });
 
@@ -70,6 +72,7 @@ public class GroupListView extends Fragment{
 
             }
         });
+
         LinearLayout moveAddGroup = (LinearLayout) getView().findViewById(R.id.button_grouplist_add);
         moveAddGroup.setOnClickListener((View v) -> parent.openAddGroup());
     }
