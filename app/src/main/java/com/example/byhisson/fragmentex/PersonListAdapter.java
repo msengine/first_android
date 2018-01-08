@@ -21,6 +21,7 @@ public class PersonListAdapter extends ArrayAdapter<Person> {
     Context context;
     int resId;
     ArrayList<Person> datas;
+    PersonListItemView itemView;
 
     public PersonListAdapter(Context context, int resId, ArrayList<Person> datas) {
         super(context, resId);
@@ -40,36 +41,37 @@ public class PersonListAdapter extends ArrayAdapter<Person> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
-            PersonHolder holder = new PersonHolder(convertView);
+            PersonListItemView holder = new PersonListItemView(convertView);
             convertView.setTag(holder);
         }
-        PersonHolder holder = (PersonHolder) convertView.getTag();
+        itemView = (PersonListItemView) convertView.getTag();
 
-        ImageView typeImagView = holder.typeImageView;
-        TextView nameView = holder.nameView;
-        TextView addressView = holder.addressView;
-        ImageView menuImageView = holder.menuImangeView;
+        getPersonInfo(position);
+
+        return convertView;
+    }
+
+    public void getPersonInfo(int position){
 
         final Person person = datas.get(position);
 
-        nameView.setText(person.name);
-        addressView.setText(person.address);
+        itemView.nameView.setText(person.name);
+        itemView.addressView.setText(person.address);
 
         if (person.nationality.toLowerCase().equals("korea")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.kor, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.kor, null)));
         } else if (person.nationality.toLowerCase().equals("usa")) {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.usa, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.usa, null)));
         } else {
-            typeImagView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_place_black_24dp, null)));
+            itemView.typeImageView.setImageDrawable((ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_place_black_24dp, null)));
         }
 
-        menuImageView.setOnClickListener(new View.OnClickListener() {
+        itemView.menuImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast toast = Toast.makeText(context, person.hobby + " menu click", Toast.LENGTH_LONG);
                 toast.show();
             }
         });
-        return convertView;
     }
 }

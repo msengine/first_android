@@ -46,6 +46,10 @@ public class PersonListView extends Fragment {
     public void onResume() {
         super.onResume();
 
+        openPersonList();
+    }
+
+    public void openPersonList(){
         DunkirkHub dunkirkHub = retrofit.create(DunkirkHub.class);
         final Call<ArrayList<Person>> call = dunkirkHub.repoContributors2("persons");
 
@@ -74,5 +78,6 @@ public class PersonListView extends Fragment {
 
         LinearLayout moveAddPerson = (LinearLayout) getView().findViewById(R.id.button_add2);
         moveAddPerson.setOnClickListener((View v) -> parent.openAddUser());
+
     }
 }
