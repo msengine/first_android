@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,7 @@ public class PersonListView extends Fragment {
                 personArrayList = response.body();
 
                 ListView listview = (ListView) getView().findViewById(R.id.custom_listview);
-                PersonListAdapter adapter = new PersonListAdapter(getActivity(), R.layout.custom_item, personArrayList);
+                PersonListAdapter adapter = new PersonListAdapter(getActivity(), R.layout.person_custom_item, personArrayList);
 
                 listview.setAdapter(adapter);
 
