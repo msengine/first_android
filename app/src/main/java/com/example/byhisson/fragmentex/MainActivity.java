@@ -103,7 +103,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void openAddGroupMemberList(){
+    public void openAddGroupMemberList(String selectedGroupName){
+        GroupMemberAddFragment openAddMemberList = new GroupMemberAddFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_main, openAddMemberList.newInstance(selectedGroupName));
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
     }
 

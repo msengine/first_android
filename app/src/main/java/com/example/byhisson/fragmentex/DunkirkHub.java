@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 public interface DunkirkHub {
 
     //public static String SERVER_ADRESS = "http://210.121.160.82:10002/";
-    public static String SERVER_ADRESS = "http://100.114.50.66:8080/";
+    public static String SERVER_ADRESS = "http://100.114.51.177:8080/";
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SERVER_ADRESS)
@@ -63,9 +63,10 @@ public interface DunkirkHub {
             @Field("name") String name,
             @Field("organization") String organization);
 
+    @FormUrlEncoded
     @PUT("group/{name}")
-    Call<Void> addMemberToGroup(
-            @Field("name") String name,
+    Call<Boolean> addMemberToGroup(
+            @Path("name") String name,
             @Field("member") String member);
 
     @GET("group/{name}")

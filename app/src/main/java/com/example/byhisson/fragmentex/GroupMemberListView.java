@@ -63,6 +63,7 @@ public class GroupMemberListView extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<String>>  call, Response<ArrayList<String>>  response) {
                 memberArrayList = response.body();
+                OrderByAscending();
 
                 ListView listview = (ListView) getView().findViewById(R.id.group_member_listview);
                 GroupMemberListAdapter adapter = new GroupMemberListAdapter(getActivity(), R.layout.group_member_item, memberArrayList);
@@ -82,6 +83,19 @@ public class GroupMemberListView extends Fragment {
         });
 
         LinearLayout moveAddMember = (LinearLayout) getView().findViewById(R.id.button_group_member_add);
-        moveAddMember.setOnClickListener((View v) -> parent.openAddGroupMemberList());
+        moveAddMember.setOnClickListener((View v) -> parent.openAddGroupMemberList(selectedGroupName));
+    }
+
+    void OrderByAscending(){
+        String temp ="";
+        for(int i = 0; i < memberArrayList.size(); i++){
+            for(int j =i +1 ; j < memberArrayList.size();j++ ){
+                if(memberArrayList.get(j).compareTo(memberArrayList.get(i)) < 0){
+                    temp = memberArrayList.get(i);
+                    memberArrayList.set(i, memberArrayList.get(j));
+                    memberArrayList.set(j, temp);
+                }
+            }
+        }
     }
 }
